@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="30">
+</head>
+    
+    <title>Knoppen met Geheugen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-start; /* Links uitlijnen */
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #00ff00; /* Groene kleur */
+            border: none;
+            color: black;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px; /* Rondere hoeken */
+            margin: 5px;
+            transition: background-color 0.3s ease; /* Soepele overgang */
+            width: 40px;  /* Vaste breedte voor elke knop */
+            height: 50px;  /* Vaste hoogte voor elke knop */
+        }
+
+        button.red {
+            background-color: #ff0000; /* Rode kleur */
+        }
+
+        button.orange {
+            background-color: #ffa600; /* Oranje kleur */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Kamers</h1>
+
+    <!-- Rij 1: 7 knoppen -->
+    <div class="button-container">
+        <button id="11" onclick="changeColor(this)">11</button>
+        <button id="12" onclick="changeColor(this)">12</button>
+        <button id="13" onclick="changeColor(this)">13</button>
+        <button id="14" onclick="changeColor(this)">14</button>
+        <button id="15" onclick="changeColor(this)">15</button>
+        <button id="16" onclick="changeColor(this)">16</button>
+        <button id="17" onclick="changeColor(this)">17</button>
+    </div>
+
+    <!-- Rij 2: 7 knoppen -->
+    <div class="button-container">
+        <button id="21" onclick="changeColor(this)">21</button>
+        <button id="22" onclick="changeColor(this)">22</button>
+        <button id="23" onclick="changeColor(this)">23</button>
+        <button id="24" onclick="changeColor(this)">24</button>
+        <button id="25" onclick="changeColor(this)">25</button>
+        <button id="26" onclick="changeColor(this)">26</button>
+        <button id="27" onclick="changeColor(this)">27</button>
+    </div>
+
+    <!-- Rij 3: 4 knoppen -->
+    <div class="button-container">
+        <button id="31" onclick="changeColor(this)">31</button>
+        <button id="32" onclick="changeColor(this)">32</button>
+        <button id="33" onclick="changeColor(this)">33</button>
+        <button id="34" onclick="changeColor(this)">34</button>
+    </div>
+
+    <!-- Rij 4: 5 knoppen -->
+    <div class="button-container">
+        <button id="41" onclick="changeColor(this)">41</button>
+        <button id="42" onclick="changeColor(this)">42</button>
+        <button id="43" onclick="changeColor(this)">43</button>
+        <button id="45" onclick="changeColor(this)">44</button>
+        <button id="46" onclick="changeColor(this)">45</button>
+    </div>
+
+    <!-- Rij 5: 2 knoppen -->
+    <div class="button-container">
+        <button id="51" onclick="changeColor(this)">51</button>
+        <button id="52" onclick="changeColor(this)">52</button>
+    </div>
+
+    <!-- Rij 6: 5 knoppen -->
+    <div class="button-container">
+        <button id="61" onclick="changeColor(this)">61</button>
+        <button id="62" onclick="changeColor(this)">62</button>
+        <button id="63" onclick="changeColor(this)">63</button>
+        <button id="64" onclick="changeColor(this)">64</button>
+        <button id="65" onclick="changeColor(this)">65</button>
+    </div>
+
+    <script>
+        // Functie om de kleur van de knoppen in localStorage op te slaan
+        function saveColor(buttonId, colorClass) {
+            localStorage.setItem(buttonId, colorClass);
+        }
+
+        // Functie om de kleur te veranderen en op te slaan
+        function changeColor(button) {
+            const buttonId = button.id;
+            let currentClass = '';
+
+            if (button.classList.contains('red')) {
+                button.classList.remove('red');
+                button.classList.add('orange');
+                currentClass = 'orange';
+            } else if (button.classList.contains('orange')) {
+                button.classList.remove('orange');
+                currentClass = ''; // Terug naar groen
+            } else {
+                button.classList.add('red');
+                currentClass = 'red';
+            }
+
+            saveColor(buttonId, currentClass);
+        }
+
+        // Functie om bij het laden van de pagina de kleuren te herstellen
+        function loadColors() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                const buttonId = button.id;
+                const savedColorClass = localStorage.getItem(buttonId);
+
+                if (savedColorClass) {
+                    button.classList.add(savedColorClass);
+                }
+            });
+        }
+
+        // Herstel de kleuren bij het laden van de pagina
+        window.onload = loadColors;
+    </script>
+
+</body>
+</html>
